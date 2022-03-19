@@ -1,11 +1,11 @@
 import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
-import { CreateSubTaskDto } from './dtos/create-sub-task.dto';
-import { CreateTaskDto } from './dtos/create-task.dto';
-import { UpdateSubTaskDto } from './dtos/update-sub-task.dto';
-import { UpdateTaskDto } from './dtos/update-task.dto';
-import { SubTask } from './sub-task.entity';
-import { Task } from './task.entity';
-import { TasksService } from './tasks.service';
+import { CreateSubTaskDto } from '../dtos/create-sub-task.dto';
+import { CreateTaskDto } from '../dtos/create-task.dto';
+import { UpdateSubTaskDto } from '../dtos/update-sub-task.dto';
+import { UpdateTaskDto } from '../dtos/update-task.dto';
+import { SubTask } from '../model/sub-task.entity';
+import { Task } from '../model/task.entity';
+import { TasksService } from '../service/tasks.service';
 
 @Controller('tasks')
 export class TasksController {

@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateSubTaskDto } from './dtos/create-sub-task.dto';
-import { CreateTaskDto } from './dtos/create-task.dto';
-import { UpdateSubTaskDto } from './dtos/update-sub-task.dto';
-import { UpdateTaskDto } from './dtos/update-task.dto';
-import { SubTask } from './sub-task.entity';
-import { SubTaskRepository } from './sub-task.repository';
-import { Task } from './task.entity';
-import { TaskRepository } from './tasks.repository';
+import { CreateSubTaskDto } from '../dtos/create-sub-task.dto';
+import { CreateTaskDto } from '../dtos/create-task.dto';
+import { UpdateSubTaskDto } from '../dtos/update-sub-task.dto';
+import { UpdateTaskDto } from '../dtos/update-task.dto';
+import { SubTask } from '../model/sub-task.entity';
+import { SubTaskRepository } from '../repository/sub-task.repository';
+import { Task } from '../model/task.entity';
+import { TaskRepository } from '../repository/tasks.repository';
 
 @Injectable()
 export class TasksService {

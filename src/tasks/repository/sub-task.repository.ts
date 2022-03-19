@@ -1,7 +1,7 @@
 import { EntityRepository, Repository } from 'typeorm';
-import { CreateSubTaskDto } from './dtos/create-sub-task.dto';
-import { UpdateSubTaskDto } from './dtos/update-sub-task.dto';
-import { SubTask } from './sub-task.entity';
+import { CreateSubTaskDto } from '../dtos/create-sub-task.dto';
+import { UpdateSubTaskDto } from '../dtos/update-sub-task.dto';
+import { SubTask } from '../model/sub-task.entity';
 
 @EntityRepository(SubTask)
 export class SubTaskRepository extends Repository<SubTask> {
