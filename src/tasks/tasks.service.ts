@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateSubTaskDto } from './dtos/create-sub-task.dto';
 import { CreateTaskDto } from './dtos/create-task.dto';
+import { UpdateSubTaskDto } from './dtos/update-sub-task.dto';
+import { UpdateTaskDto } from './dtos/update-task.dto';
 import { SubTask } from './sub-task.entity';
 import { SubTaskRepository } from './sub-task.repository';
 import { Task } from './task.entity';
@@ -20,6 +22,10 @@ export class TasksService {
     return this.taskRepository.createTask(createTaskDto);
   }
 
+  async updateTask(taskId: number, updateTaskDto: UpdateTaskDto) {
+    return this.taskRepository.updateTask(taskId, updateTaskDto);
+  }
+
   async getTasks(): Promise<Task[]> {
     return this.taskRepository.getTasks();
   }
@@ -33,6 +39,10 @@ export class TasksService {
     createSubTaskDto: CreateSubTaskDto,
   ): Promise<SubTask> {
     return this.subtaskRepository.createSubTask(taskId, createSubTaskDto);
+  }
+
+  async updateSubTask(subTaskId: number, updateSubTaskDto: UpdateSubTaskDto) {
+    return this.subtaskRepository.updateSubTask(subTaskId, updateSubTaskDto);
   }
 
   async getSubTasksByTaskId(taskId: number): Promise<SubTask[]> {
