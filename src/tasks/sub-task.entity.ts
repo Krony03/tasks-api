@@ -2,32 +2,26 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { BaseTask } from './base-task';
-import { SubTask } from './sub-task.entity';
+import { Task } from './task.entity';
 
 @Entity()
-export class Task extends BaseTask {
+export class SubTask extends BaseTask {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ type: 'text', nullable: false })
   title: string;
 
-  @Column({ type: 'text', nullable: true })
-  details?: string;
-
-  @Column({ type: 'timestamptz', nullable: true })
-  deadline?: Date;
-
   @Column({ type: 'boolean', default: false })
   isDone: boolean;
 
-  @OneToMany(() => SubTask, (subTask) => subTask.task)
-  subTasks: SubTask[];
+  @ManyToOne(() => Task, (task) => task.subTasks)
+  task: number;
 
   @CreateDateColumn()
   createdAt: Date;

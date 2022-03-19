@@ -12,7 +12,7 @@ export class TaskRepository extends Repository<Task> {
     task.details = details;
     if (deadline) task.deadline = new Date(deadline);
 
-    return await task.save();
+    return await this.save(task);
   }
 
   async getTasks(): Promise<Task[]> {
