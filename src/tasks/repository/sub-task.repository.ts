@@ -23,7 +23,7 @@ export class SubTaskRepository extends Repository<SubTask> {
 
     const subTask = await this.findOne(subTaskId);
     if (title) subTask.title = title;
-    if (isDone) subTask.isDone = isDone;
+    if (isDone != null && isDone != undefined) subTask.isDone = isDone;
 
     return await this.save(subTask);
   }

@@ -26,7 +26,7 @@ export class TaskRepository extends Repository<Task> {
     if (title) task.title = title;
     task.details = details;
     if (deadline) task.deadline = new Date(deadline);
-    if (isDone) task.isDone = isDone;
+    if (isDone != null && isDone != undefined) task.isDone = isDone;
 
     return await this.save(task);
   }
