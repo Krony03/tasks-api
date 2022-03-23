@@ -4,14 +4,9 @@ import { typeOrmConfig } from './config/typeorm.config';
 import { TasksModule } from './tasks/tasks.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
-import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      envFilePath: '.env',
-      isGlobal: true,
-    }),
     TypeOrmModule.forRoot(typeOrmConfig),
     TasksModule,
     UsersModule,
