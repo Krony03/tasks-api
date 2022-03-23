@@ -2,11 +2,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   Unique,
   UpdateDateColumn,
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { Task } from 'src/tasks/model/task.entity';
 
 @Entity()
 @Unique(['email'])
@@ -40,6 +42,9 @@ export class User {
 
   @Column({ nullable: true, type: 'varchar', length: 64 })
   recoverToken: string;
+
+  @OneToMany(() => Task, (task) => task.user)
+  tasks: Task[];
 
   @CreateDateColumn()
   createdAt: Date;

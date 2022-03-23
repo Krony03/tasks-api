@@ -1,3 +1,4 @@
+import { User } from 'src/users/model/user.entity';
 import {
   Column,
   CreateDateColumn,
@@ -21,7 +22,10 @@ export class SubTask extends BaseTask {
   isDone: boolean;
 
   @ManyToOne(() => Task, (task) => task.subTasks)
-  task: number;
+  task: Task;
+
+  @ManyToOne(() => User)
+  user: string;
 
   @CreateDateColumn()
   createdAt: Date;

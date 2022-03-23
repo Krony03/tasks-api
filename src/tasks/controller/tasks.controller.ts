@@ -1,4 +1,15 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from 'src/auth/decorator/get-user-decorator';
+import { User } from 'src/users/model/user.entity';
 import { CreateSubTaskDto } from '../dtos/create-sub-task.dto';
 import { CreateTaskDto } from '../dtos/create-task.dto';
 import { UpdateSubTaskDto } from '../dtos/update-sub-task.dto';
@@ -8,41 +19,50 @@ import { Task } from '../model/task.entity';
 import { TasksService } from '../service/tasks.service';
 
 @Controller('tasks')
+@UseGuards(AuthGuard())
 export class TasksController {
   constructor(private tasksService: TasksService) {}
 
   @Post()
-  async createTask(@Body() createTaskDto: CreateTaskDto): Promise<Task> {
-    return this.tasksService.createTask(createTaskDto);
+  async createTask(
+    @Body() createTaskDto: CreateTaskDto,
+    @GetUser() user: User,
+  ): Promise<Task> {
+    return this.tasksService.createTask(createTaskDto, user);
   }
 
-  @Put(':id')
+  @Patch(':id')
   async updateTask(
     @Param('id') taskId: number,
     @Body() updateTaskDto: UpdateTaskDto,
+    @GetUser() user: User,
   ) {
-    return this.tasksService.updateTask(taskId, updateTaskDto);
+    return this.tasksService.updateTask(taskId, updateTaskDto, user);
   }
 
   @Get()
-  async getTasks(): Promise<Task[]> {
-    return this.tasksService.getTasks();
+  async getTasks(@GetUser() user: User): Promise<Task[]> {
+    return this.tasksService.getTasks(user);
   }
 
   @Get(':id')
-  async getTaskById(@Param('id') taskId: number): Promise<Task> {
-    return this.tasksService.getTaskById(taskId);
+  async getTaskById(
+    @Param('id') taskId: number,
+    @GetUser() user: User,
+  ): Promise<Task> {
+    return this.tasksService.getTaskById(taskId, user);
   }
 
   @Post(':id/sub-tasks')
   async createSubTask(
     @Param('id') taskId: number,
     @Body() createSubTaskDto: CreateSubTaskDto,
+    @GetUser() user: User,
   ): Promise<SubTask> {
-    return this.tasksService.createSubTask(taskId, createSubTaskDto);
+    return this.tasksService.createSubTask(taskId, user, createSubTaskDto);
   }
 
-  @Put(':id/sub-tasks/:subTaskId')
+  @Patch(':id/sub-tasks/:subTaskId')
   async updateSubTask(
     @Param('subTaskId') subTaskId: number,
     @Body() updateSubTaskDto: UpdateSubTaskDto,
@@ -51,7 +71,10 @@ export class TasksController {
   }
 
   @Get(':id/sub-tasks')
-  async getSubTasksByTaskId(@Param('id') taskId: number): Promise<SubTask[]> {
-    return this.tasksService.getSubTasksByTaskId(taskId);
+  async getSubTasksByTaskId(
+    @Param('id') taskId: number,
+    @GetUser() user: User,
+  ): Promise<SubTask[]> {
+    return this.tasksService.getSubTasksByTaskId(taskId, user);
   }
 }

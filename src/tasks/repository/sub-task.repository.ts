@@ -2,18 +2,20 @@ import { EntityRepository, Repository } from 'typeorm';
 import { CreateSubTaskDto } from '../dtos/create-sub-task.dto';
 import { UpdateSubTaskDto } from '../dtos/update-sub-task.dto';
 import { SubTask } from '../model/sub-task.entity';
+import { Task } from '../model/task.entity';
 
 @EntityRepository(SubTask)
 export class SubTaskRepository extends Repository<SubTask> {
   async createSubTask(
-    taskId: number,
+    task: Task,
     createSubTaskDto: CreateSubTaskDto,
   ): Promise<SubTask> {
     const { title } = createSubTaskDto;
 
     const subTask = new SubTask();
     subTask.title = title;
-    subTask.task = taskId;
+    subTask.task = task;
+    subTask.user = task.user;
 
     return await this.save(subTask);
   }
@@ -28,7 +30,7 @@ export class SubTaskRepository extends Repository<SubTask> {
     return await this.save(subTask);
   }
 
-  async getSubTasksByTaskId(taskId: number): Promise<SubTask[]> {
-    return await this.find({ task: taskId });
+  async getSubTasksByTaskId(task: Task): Promise<SubTask[]> {
+    return await this.find({ task: task });
   }
 }

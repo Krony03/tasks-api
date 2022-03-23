@@ -1,7 +1,9 @@
+import { User } from 'src/users/model/user.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -25,6 +27,9 @@ export class Task extends BaseTask {
 
   @Column({ type: 'boolean', default: false })
   isDone: boolean;
+
+  @ManyToOne(() => User, (user) => user.tasks)
+  user: string;
 
   @OneToMany(() => SubTask, (subTask) => subTask.task)
   subTasks: SubTask[];
